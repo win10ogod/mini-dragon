@@ -48,6 +48,28 @@ struct McpServerConfig {
     // type inferred: if command non-empty -> stdio, if url non-empty -> http
 };
 
+struct FallbackConfig {
+    bool enabled = false;
+    std::vector<std::string> provider_order;  // keys into providers map
+    int rate_limit_cooldown = 60;     // seconds
+    int billing_cooldown = 18000;     // 5 hours
+    int auth_cooldown = 3600;         // 1 hour
+    int timeout_cooldown = 30;        // seconds
+};
+
+struct EmbeddingConfig {
+    bool enabled = false;
+    std::string provider;      // key into providers map (separate from main)
+    std::string model = "text-embedding-3-small";
+    int dimensions = 1536;
+};
+
+struct HookConfig {
+    std::string type;     // HookType as string
+    std::string command;  // shell command to execute
+    int priority = 0;
+};
+
 struct Config {
     // Top-level (flattened from old agents.defaults)
     std::string model = "gpt-4.1-mini";
@@ -56,10 +78,30 @@ struct Config {
     int max_tokens = 2048;
     double temperature = 0.7;
     int max_iterations = 20;
-    int context_window = 50;   // sliding window size for session history
-    int max_tool_output = 4096; // max chars per tool output before truncation
+    int context_window = 50;   // sliding window size for session history (message count)
+    int context_tokens = 128000; // model context window in tokens (for budget math)
+    int max_tool_output = 0;   // max chars per tool output (0 = auto: 30% of context)
+
+    // Context pruning settings (openclaw-compatible)
+    double prune_soft_ratio = 0.3;   // trigger soft trim at this context usage
+    double prune_hard_ratio = 0.5;   // trigger hard clear at this context usage
+    int prune_head_chars = 1500;     // keep first N chars of pruned tool result
+    int prune_tail_chars = 1500;     // keep last N chars of pruned tool result
+    int prune_keep_recent = 3;       // protect last N assistant messages from pruning
+    bool auto_compact = true;        // auto-compaction when context is near limit
+    int compact_reserve_tokens = 20000; // reserve tokens for compaction prompt
+    int max_retries = 3;             // provider error retries
 
     std::map<std::string, ProviderConfig> providers;
+
+    // Provider fallback chain
+    FallbackConfig fallback;
+
+    // Embedding config (for hybrid memory search)
+    EmbeddingConfig embedding;
+
+    // Hook configs
+    std::vector<HookConfig> hooks;
 
     // Channel configs
     TelegramChannelConfig telegram;

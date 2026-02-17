@@ -4,12 +4,15 @@
 
 namespace minidragon {
 
-void register_memory_tool(ToolRegistry& reg, const std::string& workspace) {
+void register_memory_tool(ToolRegistry& reg, const std::string& workspace,
+                           std::shared_ptr<MemorySearchStore> search_store,
+                           ProviderChain* provider_chain,
+                           const EmbeddingConfig* embedding_cfg) {
     auto store = std::make_shared<MemoryStore>(workspace);
 
     ToolDef td;
     td.name = "memory";
-    td.description = "Save and recall memories. Actions: save (append to today), recall (get recent N days), long_term_save, long_term_read";
+    td.description = "Save/recall memories.";
     td.parameters = nlohmann::json::parse(R"JSON({
         "type": "object",
         "properties": {
@@ -17,25 +20,38 @@ void register_memory_tool(ToolRegistry& reg, const std::string& workspace) {
                 "type": "string",
                 "enum": ["save", "recall", "long_term_save", "long_term_read"]
             },
-            "content": {
-                "type": "string",
-                "description": "Content to save (required for save/long_term_save)"
-            },
-            "days": {
-                "type": "integer",
-                "description": "Number of days to recall (default 7)"
-            }
+            "content": {"type": "string"},
+            "days": {"type": "integer"}
         },
         "required": ["action"]
     })JSON");
 
-    td.func = [store](const nlohmann::json& args) -> std::string {
+    // Helper lambda to auto-index into search store
+    auto index_memory = [search_store, provider_chain, embedding_cfg](
+            const std::string& content, const std::string& source) {
+        if (!search_store) return;
+        std::vector<float> embedding;
+        if (embedding_cfg && embedding_cfg->enabled && provider_chain) {
+            try {
+                auto resp = provider_chain->embed({content}, embedding_cfg->model);
+                if (!resp.embeddings.empty()) {
+                    embedding = std::move(resp.embeddings[0]);
+                }
+            } catch (...) {
+                // Embedding failed — index without vector
+            }
+        }
+        search_store->upsert(content, source, embedding);
+    };
+
+    td.func = [store, index_memory](const nlohmann::json& args) -> std::string {
         std::string action = args.value("action", "");
 
         if (action == "save") {
             std::string content = args.value("content", "");
             if (content.empty()) return "[error] content is required for save action";
             store->append_today(content);
+            index_memory(content, "daily:" + today_str());
             return "Memory saved for today.";
         }
         else if (action == "recall") {
@@ -47,6 +63,7 @@ void register_memory_tool(ToolRegistry& reg, const std::string& workspace) {
             std::string content = args.value("content", "");
             if (content.empty()) return "[error] content is required for long_term_save action";
             store->write_long_term(content);
+            index_memory(content, "long_term");
             return "Long-term memory saved.";
         }
         else if (action == "long_term_read") {

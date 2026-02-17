@@ -43,7 +43,10 @@ nlohmann::json Config::to_json() const {
     j["temperature"] = temperature;
     j["max_iterations"] = max_iterations;
     j["context_window"] = context_window;
+    j["context_tokens"] = context_tokens;
     j["max_tool_output"] = max_tool_output;
+    j["max_retries"] = max_retries;
+    j["auto_compact"] = auto_compact;
 
     // Providers
     for (auto& [k, v] : providers) {
@@ -82,6 +85,38 @@ nlohmann::json Config::to_json() const {
     // Tools
     if (!tools.is_null()) {
         j["tools"] = tools;
+    }
+
+    // Fallback
+    if (fallback.enabled) {
+        auto& fb = j["fallback"];
+        fb["enabled"] = fallback.enabled;
+        if (!fallback.provider_order.empty()) fb["provider_order"] = fallback.provider_order;
+        fb["rate_limit_cooldown"] = fallback.rate_limit_cooldown;
+        fb["billing_cooldown"] = fallback.billing_cooldown;
+        fb["auth_cooldown"] = fallback.auth_cooldown;
+        fb["timeout_cooldown"] = fallback.timeout_cooldown;
+    }
+
+    // Embedding
+    if (embedding.enabled) {
+        auto& emb = j["embedding"];
+        emb["enabled"] = embedding.enabled;
+        if (!embedding.provider.empty()) emb["provider"] = embedding.provider;
+        emb["model"] = embedding.model;
+        emb["dimensions"] = embedding.dimensions;
+    }
+
+    // Hooks
+    if (!hooks.empty()) {
+        auto& arr = j["hooks"];
+        for (auto& h : hooks) {
+            nlohmann::json hj;
+            hj["type"] = h.type;
+            hj["command"] = h.command;
+            if (h.priority != 0) hj["priority"] = h.priority;
+            arr.push_back(hj);
+        }
     }
 
     // MCP servers
@@ -136,7 +171,21 @@ Config Config::from_json(const nlohmann::json& j) {
     c.temperature = j.value("temperature", c.temperature);
     c.max_iterations = j.value("max_iterations", c.max_iterations);
     c.context_window = j.value("context_window", c.context_window);
+    c.context_tokens = j.value("context_tokens", c.context_tokens);
     c.max_tool_output = j.value("max_tool_output", c.max_tool_output);
+    c.max_retries = j.value("max_retries", c.max_retries);
+    c.auto_compact = j.value("auto_compact", c.auto_compact);
+
+    // Pruning settings
+    if (j.contains("pruning")) {
+        auto& p = j["pruning"];
+        c.prune_soft_ratio = p.value("soft_ratio", c.prune_soft_ratio);
+        c.prune_hard_ratio = p.value("hard_ratio", c.prune_hard_ratio);
+        c.prune_head_chars = p.value("head_chars", c.prune_head_chars);
+        c.prune_tail_chars = p.value("tail_chars", c.prune_tail_chars);
+        c.prune_keep_recent = p.value("keep_recent", c.prune_keep_recent);
+        c.compact_reserve_tokens = p.value("compact_reserve_tokens", c.compact_reserve_tokens);
+    }
 
     // Providers
     if (j.contains("providers")) {
@@ -196,6 +245,41 @@ Config Config::from_json(const nlohmann::json& j) {
     if (c.tools.contains("spawn") && !c.tools.contains("exec")) {
         c.tools["exec"] = c.tools["spawn"];
         c.tools.erase("spawn");
+    }
+
+    // Fallback config
+    if (j.contains("fallback")) {
+        auto& fb = j["fallback"];
+        c.fallback.enabled = fb.value("enabled", false);
+        if (fb.contains("provider_order") && fb["provider_order"].is_array()) {
+            c.fallback.provider_order = parse_string_array(fb["provider_order"]);
+        }
+        c.fallback.rate_limit_cooldown = fb.value("rate_limit_cooldown", c.fallback.rate_limit_cooldown);
+        c.fallback.billing_cooldown = fb.value("billing_cooldown", c.fallback.billing_cooldown);
+        c.fallback.auth_cooldown = fb.value("auth_cooldown", c.fallback.auth_cooldown);
+        c.fallback.timeout_cooldown = fb.value("timeout_cooldown", c.fallback.timeout_cooldown);
+    }
+
+    // Embedding config
+    if (j.contains("embedding")) {
+        auto& emb = j["embedding"];
+        c.embedding.enabled = emb.value("enabled", false);
+        c.embedding.provider = emb.value("provider", "");
+        c.embedding.model = emb.value("model", c.embedding.model);
+        c.embedding.dimensions = emb.value("dimensions", c.embedding.dimensions);
+    }
+
+    // Hooks config
+    if (j.contains("hooks") && j["hooks"].is_array()) {
+        for (auto& h : j["hooks"]) {
+            HookConfig hc;
+            hc.type = h.value("type", "");
+            hc.command = h.value("command", "");
+            hc.priority = h.value("priority", 0);
+            if (!hc.type.empty() && !hc.command.empty()) {
+                c.hooks.push_back(std::move(hc));
+            }
+        }
     }
 
     // MCP servers

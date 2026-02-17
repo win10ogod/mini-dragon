@@ -21,6 +21,7 @@ class ToolRegistry {
 public:
     void register_tool(ToolDef def) {
         tools_[def.name] = std::move(def);
+        spec_dirty_ = true;
     }
 
     bool has(const std::string& name) const {
@@ -36,6 +37,7 @@ public:
     }
 
     nlohmann::json tools_spec() const {
+        if (!spec_dirty_) return cached_spec_;
         nlohmann::json arr = nlohmann::json::array();
         for (auto& [name, def] : tools_) {
             arr.push_back({
@@ -47,7 +49,9 @@ public:
                 }}
             });
         }
-        return arr;
+        cached_spec_ = std::move(arr);
+        spec_dirty_ = false;
+        return cached_spec_;
     }
 
     std::vector<std::string> tool_names() const {
@@ -58,6 +62,8 @@ public:
 
 private:
     std::map<std::string, ToolDef> tools_;
+    mutable nlohmann::json cached_spec_;
+    mutable bool spec_dirty_ = true;
 };
 
 } // namespace minidragon

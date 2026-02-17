@@ -18,8 +18,16 @@ static void print_usage() {
               << "  gateway [--host H] [--port P]\n"
               << "                              Start HTTP gateway server\n"
               << "  status                      Show current configuration\n"
-              << "  cron add|list|remove        Manage cron jobs\n";
+              << "  doctor                      Diagnose configuration issues\n"
+              << "  sessions [list|show DATE|clear]\n"
+              << "                              Manage session history\n"
+              << "  cron add|list|remove        Manage cron jobs\n"
+              << "  version                     Show version info\n";
 }
+
+#ifndef MINIDRAGON_VERSION
+#define MINIDRAGON_VERSION "1.1.0"
+#endif
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -76,8 +84,24 @@ int main(int argc, char* argv[]) {
     else if (cmd == "status") {
         return minidragon::cmd_status();
     }
+    else if (cmd == "doctor") {
+        return minidragon::cmd_doctor();
+    }
+    else if (cmd == "sessions") {
+        std::string subcmd = args.empty() ? "list" : args[0];
+        std::string arg = args.size() > 1 ? args[1] : "";
+        return minidragon::cmd_sessions(subcmd, arg);
+    }
     else if (cmd == "cron") {
         return minidragon::cmd_cron(args);
+    }
+    else if (cmd == "version" || cmd == "--version" || cmd == "-v") {
+        std::cout << "minidragon " << MINIDRAGON_VERSION << "\n";
+        return 0;
+    }
+    else if (cmd == "help" || cmd == "--help" || cmd == "-h") {
+        print_usage();
+        return 0;
     }
     else {
         std::cerr << "Unknown command: " << cmd << "\n";

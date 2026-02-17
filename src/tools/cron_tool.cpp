@@ -9,16 +9,16 @@ void register_cron_tool(ToolRegistry& reg, const std::string& db_path) {
 
     ToolDef def;
     def.name = "cron";
-    def.description = "Manage cron jobs. Actions: add (name, message, every_seconds OR cron_expr), list, remove (id).";
+    def.description = "Manage cron jobs (add/list/remove).";
     def.parameters = {
         {"type", "object"},
         {"properties", {
-            {"action", {{"type", "string"}, {"enum", {"add", "list", "remove"}}, {"description", "The action to perform"}}},
-            {"name", {{"type", "string"}, {"description", "Job name (for add)"}}},
-            {"message", {{"type", "string"}, {"description", "Message to deliver when job fires (for add)"}}},
-            {"every_seconds", {{"type", "integer"}, {"description", "Interval in seconds (for add with interval schedule)"}}},
-            {"cron_expr", {{"type", "string"}, {"description", "Cron expression '* * * * *' (for add with cron schedule)"}}},
-            {"id", {{"type", "integer"}, {"description", "Job ID (for remove)"}}}
+            {"action", {{"type", "string"}, {"enum", {"add", "list", "remove"}}}},
+            {"name", {{"type", "string"}}},
+            {"message", {{"type", "string"}}},
+            {"every_seconds", {{"type", "integer"}}},
+            {"cron_expr", {{"type", "string"}}},
+            {"id", {{"type", "integer"}}}
         }},
         {"required", nlohmann::json::array({"action"})}
     };

@@ -11,11 +11,11 @@ void register_team_tools(ToolRegistry& tools,
     // ── team_create ─────────────────────────────────────────────────
     tools.register_tool({
         "team_create",
-        "Create a new agent team. You become the team lead.",
+        "Create a new agent team.",
         json::parse(R"JSON({
             "type": "object",
             "properties": {
-                "name": {"type": "string", "description": "Display name for the team"}
+                "name": {"type": "string"}
             },
             "required": ["name"]
         })JSON"),
@@ -32,14 +32,14 @@ void register_team_tools(ToolRegistry& tools,
     // ── team_spawn ──────────────────────────────────────────────────
     tools.register_tool({
         "team_spawn",
-        "Spawn a new teammate subprocess. The teammate runs independently and communicates via inbox messages.",
+        "Spawn a new teammate.",
         json::parse(R"JSON({
             "type": "object",
             "properties": {
-                "name":       {"type": "string", "description": "Unique name for the teammate (e.g. 'researcher', 'tester')"},
-                "prompt":     {"type": "string", "description": "Initial task/instructions for the teammate"},
-                "model":      {"type": "string", "description": "Model to use (optional, defaults to team config)"},
-                "agent_type": {"type": "string", "description": "Role type (optional, default: general-purpose)"}
+                "name":       {"type": "string"},
+                "prompt":     {"type": "string"},
+                "model":      {"type": "string"},
+                "agent_type": {"type": "string"}
             },
             "required": ["name", "prompt"]
         })JSON"),
@@ -62,12 +62,12 @@ void register_team_tools(ToolRegistry& tools,
     // ── team_send ───────────────────────────────────────────────────
     tools.register_tool({
         "team_send",
-        "Send a message to a specific teammate, or broadcast to all with to=\"*\".",
+        "Send message to a teammate (to='*' for broadcast).",
         json::parse(R"JSON({
             "type": "object",
             "properties": {
-                "to":   {"type": "string", "description": "Teammate name, or '*' to broadcast"},
-                "text": {"type": "string", "description": "Message content"}
+                "to":   {"type": "string"},
+                "text": {"type": "string"}
             },
             "required": ["to", "text"]
         })JSON"),
@@ -90,11 +90,11 @@ void register_team_tools(ToolRegistry& tools,
     // ── team_shutdown ───────────────────────────────────────────────
     tools.register_tool({
         "team_shutdown",
-        "Request a teammate to gracefully shut down.",
+        "Request teammate shutdown.",
         json::parse(R"JSON({
             "type": "object",
             "properties": {
-                "name": {"type": "string", "description": "Teammate name to shut down"}
+                "name": {"type": "string"}
             },
             "required": ["name"]
         })JSON"),
@@ -109,7 +109,7 @@ void register_team_tools(ToolRegistry& tools,
     // ── team_cleanup ────────────────────────────────────────────────
     tools.register_tool({
         "team_cleanup",
-        "Delete the team and all its resources (inboxes, tasks). Shut down teammates first.",
+        "Delete team and resources.",
         json::parse(R"JSON({"type": "object", "properties": {}})JSON"),
         [team](const json&) -> std::string {
             if (!team->team_exists()) return "[error] No team exists.";
@@ -121,7 +121,7 @@ void register_team_tools(ToolRegistry& tools,
     // ── team_status ─────────────────────────────────────────────────
     tools.register_tool({
         "team_status",
-        "List all team members and their roles.",
+        "List team members.",
         json::parse(R"JSON({"type": "object", "properties": {}})JSON"),
         [team](const json&) -> std::string {
             if (!team->team_exists()) return "No team active.";
@@ -136,7 +136,7 @@ void register_team_tools(ToolRegistry& tools,
     // ── inbox_check ─────────────────────────────────────────────────
     tools.register_tool({
         "inbox_check",
-        "Read all unread messages from your inbox.",
+        "Read unread inbox messages.",
         json::parse(R"JSON({"type": "object", "properties": {}})JSON"),
         [team, my_name](const json&) -> std::string {
             if (!team->team_exists()) return "No team active.";
@@ -153,12 +153,12 @@ void register_team_tools(ToolRegistry& tools,
     // ── task_create ─────────────────────────────────────────────────
     tools.register_tool({
         "task_create",
-        "Create a new task in the shared task list.",
+        "Create a shared task.",
         json::parse(R"JSON({
             "type": "object",
             "properties": {
-                "subject":     {"type": "string", "description": "Brief task title"},
-                "description": {"type": "string", "description": "Detailed description of what needs to be done"}
+                "subject":     {"type": "string"},
+                "description": {"type": "string"}
             },
             "required": ["subject"]
         })JSON"),
@@ -174,14 +174,14 @@ void register_team_tools(ToolRegistry& tools,
     // ── task_update ─────────────────────────────────────────────────
     tools.register_tool({
         "task_update",
-        "Update a task's status, owner, or dependencies.",
+        "Update task status/owner.",
         json::parse(R"JSON({
             "type": "object",
             "properties": {
-                "id":           {"type": "string", "description": "Task ID"},
-                "status":       {"type": "string", "description": "New status: pending, in_progress, completed"},
-                "owner":        {"type": "string", "description": "Assign to teammate name"},
-                "addBlockedBy": {"type": "array", "items": {"type": "string"}, "description": "Task IDs that block this task"}
+                "id":           {"type": "string"},
+                "status":       {"type": "string"},
+                "owner":        {"type": "string"},
+                "addBlockedBy": {"type": "array", "items": {"type": "string"}}
             },
             "required": ["id"]
         })JSON"),
@@ -201,7 +201,7 @@ void register_team_tools(ToolRegistry& tools,
     // ── task_list ───────────────────────────────────────────────────
     tools.register_tool({
         "task_list",
-        "List all tasks in the shared task list.",
+        "List shared tasks.",
         json::parse(R"JSON({"type": "object", "properties": {}})JSON"),
         [team](const json&) -> std::string {
             if (!team->team_exists()) return "No team active.";

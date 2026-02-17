@@ -3,7 +3,6 @@
 #include <sstream>
 #include <algorithm>
 #include <chrono>
-#include <regex>
 
 #ifdef _WIN32
 #define popen _popen
@@ -12,7 +11,7 @@
 
 namespace minidragon {
 
-// Dangerous patterns to block
+// Dangerous patterns to block (no regex — simple string matching)
 static bool is_dangerous(const std::string& cmd) {
     // Block destructive system commands
     static const std::vector<std::string> blocked = {
@@ -25,9 +24,32 @@ static bool is_dangerous(const std::string& cmd) {
     for (auto& b : blocked) {
         if (lower.find(b) != std::string::npos) return true;
     }
-    // Block rm -rf with root paths
-    std::regex rm_rf_root(R"(rm\s+-[a-zA-Z]*r[a-zA-Z]*f[a-zA-Z]*\s+/)");
-    if (std::regex_search(lower, rm_rf_root)) return true;
+    // Block "rm -rf /" variants: look for rm with -r and -f flags followed by /
+    // Simple heuristic: check if cmd contains "rm" and "-rf" or "-r -f" and starts with "/"
+    if (lower.find("rm ") != std::string::npos || lower.find("rm\t") != std::string::npos) {
+        bool has_r = lower.find("-r") != std::string::npos;
+        bool has_f = lower.find("-f") != std::string::npos;
+        if (has_r && has_f) {
+            // Check if any argument starts with / (root path)
+            size_t rm_pos = lower.find("rm");
+            std::string after_rm = lower.substr(rm_pos);
+            // Find the first path argument after flags
+            size_t i = 2; // skip "rm"
+            while (i < after_rm.size()) {
+                // skip whitespace
+                while (i < after_rm.size() && (after_rm[i] == ' ' || after_rm[i] == '\t')) i++;
+                if (i >= after_rm.size()) break;
+                if (after_rm[i] == '-') {
+                    // skip flag
+                    while (i < after_rm.size() && after_rm[i] != ' ' && after_rm[i] != '\t') i++;
+                } else if (after_rm[i] == '/') {
+                    return true; // rm -rf with root path
+                } else {
+                    break; // non-root path, ok
+                }
+            }
+        }
+    }
     return false;
 }
 
@@ -49,6 +71,7 @@ static std::string exec_command(const std::string& cmd, const std::string& worki
     if (!pipe) return "[error] Failed to execute command";
 
     std::string result;
+    result.reserve(std::min(max_output + 1024, 1 << 20));
     char buffer[4096];
     while (fgets(buffer, sizeof(buffer), pipe)) {
         result += buffer;
@@ -75,22 +98,13 @@ void register_exec_tool(ToolRegistry& reg, const Config& cfg) {
 
     ToolDef def;
     def.name = "exec";
-    def.description = "Execute a shell command and return stdout/stderr. Use for running programs, scripts, git, build tools, etc.";
+    def.description = "Run a shell command.";
     def.parameters = nlohmann::json::parse(R"JSON({
         "type": "object",
         "properties": {
-            "command": {
-                "type": "string",
-                "description": "The shell command to execute"
-            },
-            "working_dir": {
-                "type": "string",
-                "description": "Working directory for the command (optional)"
-            },
-            "timeout": {
-                "type": "integer",
-                "description": "Timeout in seconds (default 60, max 300)"
-            }
+            "command": {"type": "string"},
+            "working_dir": {"type": "string"},
+            "timeout": {"type": "integer"}
         },
         "required": ["command"]
     })JSON");

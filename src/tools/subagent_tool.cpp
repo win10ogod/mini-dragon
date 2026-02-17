@@ -10,18 +10,12 @@ void register_subagent_tool(ToolRegistry& reg, const Config& cfg) {
 
     ToolDef td;
     td.name = "subagent";
-    td.description = "Spawn a focused sub-agent for a specific task. Returns the sub-agent's response.";
+    td.description = "Spawn a sub-agent for a task.";
     td.parameters = nlohmann::json::parse(R"JSON({
         "type": "object",
         "properties": {
-            "task": {
-                "type": "string",
-                "description": "The task for the sub-agent to complete"
-            },
-            "label": {
-                "type": "string",
-                "description": "Short label for the sub-task"
-            }
+            "task": {"type": "string"},
+            "label": {"type": "string"}
         },
         "required": ["task"]
     })JSON");

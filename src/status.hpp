@@ -5,4 +5,6 @@
 
 namespace minidragon {
 int cmd_status();
+int cmd_doctor();
+int cmd_sessions(const std::string& subcmd, const std::string& arg);
 } // namespace minidragon
