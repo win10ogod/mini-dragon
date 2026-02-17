@@ -5,7 +5,9 @@
 #include "tools/fs_tools.hpp"
 #include "tools/cron_tool.hpp"
 #include "tools/memory_tool.hpp"
+#include "tools/memory_search_tool.hpp"
 #include "tools/subagent_tool.hpp"
+#include "memory_search.hpp"
 #include "skills_loader.hpp"
 #include "mcp_manager.hpp"
 #include "agent.hpp"
@@ -36,7 +38,12 @@ int cmd_gateway(const std::string& host, int port) {
     register_exec_tool(tools, cfg);
     register_fs_tools(tools, cfg);
     register_cron_tool(tools, ws + "/cron/cron.db");
-    register_memory_tool(tools, ws);
+
+    // Create memory search store (needed by both memory tools)
+    auto search_store = std::make_shared<MemorySearchStore>(
+        ws + "/memory/search.db", cfg.embedding.dimensions);
+
+    register_memory_tool(tools, ws, search_store, nullptr, nullptr);
     register_subagent_tool(tools, cfg);
 
     // Skills: discover from workspace and global directories
@@ -50,6 +57,10 @@ int cmd_gateway(const std::string& host, int port) {
 
     Agent agent(cfg, tools);
     agent.set_skills(skills);
+
+    // Register memory_search tool with provider chain
+    register_memory_search_tool(tools, search_store, &agent.provider_chain(), cfg.embedding);
+
     std::mutex agent_mutex;
 
     auto handle_message = [&](const InboundMessage& msg) -> std::string {

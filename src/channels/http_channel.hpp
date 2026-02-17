@@ -152,7 +152,7 @@ async function send(){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({text:text,user:'web',channel:'http'})
     });
-    if(!res.ok)throw new Error('HTTP '+res.status);
+    if(!res.ok)throw new Error('stream_fail');
     const reader=res.body.getReader();
     const dec=new TextDecoder();
     let buf='';
@@ -177,7 +177,10 @@ async function send(){
         }catch(e){}
       }
     }
-    if(!fullText){
+    if(!fullText)throw new Error('no_content');
+    status.className='';
+  }catch(e){
+    try{
       const fallback=await fetch('/chat',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -187,14 +190,12 @@ async function send(){
       fullText=fj.reply||fj.error||'No response';
       content.innerHTML=renderMd(fullText);
       scrollBottom();
+      status.className='';
+    }catch(e2){
+      content.innerHTML='<span style="color:var(--err)">Error: '+e2.message+'</span>';
+      status.className='err';
+      setTimeout(()=>{status.className='';},3000);
     }
-    status.className='';
-  }catch(e){
-    if(!fullText){
-      content.innerHTML='<span style="color:var(--err)">Error: '+e.message+'</span>';
-    }
-    status.className='err';
-    setTimeout(()=>{status.className='';},3000);
   }
   thinking.className='';
   busy=false;
@@ -238,66 +239,100 @@ public:
             res.set_content(R"({"status":"ok"})", "application/json");
         });
 
+        // Global exception handler for httplib
+        server_.set_exception_handler([](const httplib::Request&, httplib::Response& res, std::exception_ptr ep) {
+            std::string msg = "unknown error";
+            try { if (ep) std::rethrow_exception(ep); }
+            catch (const std::exception& e) { msg = e.what(); }
+            catch (...) { msg = "non-std exception"; }
+            std::cerr << "[http] Unhandled exception: " << msg << "\n";
+            res.status = 500;
+            nlohmann::json err;
+            err["error"] = msg;
+            res.set_content(err.dump(), "application/json");
+        });
+
         server_.Post("/chat", [this](const httplib::Request& req, httplib::Response& res) {
             if (!check_auth(req, res)) return;
             if (!check_rate_limit(res)) return;
 
+            nlohmann::json j;
             try {
-                auto j = nlohmann::json::parse(req.body);
-                InboundMessage msg;
-                msg.channel = j.value("channel", "http");
-                msg.user = j.value("user", "anonymous");
-                msg.text = j.value("text", "");
-
-                std::string reply = handler_(msg);
-                nlohmann::json resp;
-                resp["reply"] = reply;
-                res.set_content(resp.dump(), "application/json");
-            } catch (const std::exception& e) {
-                nlohmann::json err;
-                err["error"] = e.what();
+                j = nlohmann::json::parse(req.body);
+            } catch (...) {
                 res.status = 400;
-                res.set_content(err.dump(), "application/json");
+                res.set_content(R"({"error":"invalid JSON in request body"})", "application/json");
+                return;
             }
+
+            InboundMessage msg;
+            msg.channel = j.value("channel", "http");
+            msg.user = j.value("user", "anonymous");
+            msg.text = j.value("text", "");
+
+            std::string reply;
+            try {
+                reply = handler_(msg);
+            } catch (const std::exception& e) {
+                std::cerr << "[http] /chat handler error: " << e.what() << "\n";
+                reply = std::string("[error] ") + e.what();
+            } catch (...) {
+                std::cerr << "[http] /chat handler unknown error\n";
+                reply = "[error] Unknown internal error";
+            }
+
+            nlohmann::json resp;
+            resp["reply"] = reply;
+            res.set_content(resp.dump(), "application/json");
         });
 
         server_.Post("/chat/stream", [this](const httplib::Request& req, httplib::Response& res) {
             if (!check_auth(req, res)) return;
             if (!check_rate_limit(res)) return;
 
+            nlohmann::json j;
             try {
-                auto j = nlohmann::json::parse(req.body);
-                InboundMessage msg;
-                msg.channel = j.value("channel", "http");
-                msg.user = j.value("user", "anonymous");
-                msg.text = j.value("text", "");
-
-                std::string reply = handler_(msg);
-
-                res.set_header("Content-Type", "text/event-stream");
-                res.set_header("Cache-Control", "no-cache");
-                res.set_header("Connection", "keep-alive");
-
-                // Stream the reply as SSE events in chunks
-                std::string body;
-                size_t chunk_size = 20;
-                for (size_t i = 0; i < reply.size(); i += chunk_size) {
-                    std::string chunk = reply.substr(i, std::min(chunk_size, reply.size() - i));
-                    nlohmann::json event;
-                    event["choices"] = nlohmann::json::array();
-                    nlohmann::json choice;
-                    choice["delta"]["content"] = chunk;
-                    event["choices"].push_back(choice);
-                    body += "data: " + event.dump() + "\n\n";
-                }
-                body += "data: [DONE]\n\n";
-                res.set_content(body, "text/event-stream");
-            } catch (const std::exception& e) {
-                nlohmann::json err;
-                err["error"] = e.what();
+                j = nlohmann::json::parse(req.body);
+            } catch (...) {
                 res.status = 400;
-                res.set_content(err.dump(), "application/json");
+                res.set_content(R"({"error":"invalid JSON in request body"})", "application/json");
+                return;
             }
+
+            InboundMessage msg;
+            msg.channel = j.value("channel", "http");
+            msg.user = j.value("user", "anonymous");
+            msg.text = j.value("text", "");
+
+            std::string reply;
+            try {
+                reply = handler_(msg);
+            } catch (const std::exception& e) {
+                std::cerr << "[http] /chat/stream handler error: " << e.what() << "\n";
+                reply = std::string("[error] ") + e.what();
+            } catch (...) {
+                std::cerr << "[http] /chat/stream handler unknown error\n";
+                reply = "[error] Unknown internal error";
+            }
+
+            res.set_header("Content-Type", "text/event-stream");
+            res.set_header("Cache-Control", "no-cache");
+            res.set_header("Connection", "keep-alive");
+
+            // Stream the reply as SSE events in chunks
+            std::string body;
+            size_t chunk_size = 20;
+            for (size_t i = 0; i < reply.size(); i += chunk_size) {
+                std::string chunk = reply.substr(i, std::min(chunk_size, reply.size() - i));
+                nlohmann::json event;
+                event["choices"] = nlohmann::json::array();
+                nlohmann::json choice;
+                choice["delta"]["content"] = chunk;
+                event["choices"].push_back(choice);
+                body += "data: " + event.dump() + "\n\n";
+            }
+            body += "data: [DONE]\n\n";
+            res.set_content(body, "text/event-stream");
         });
 
         thread_ = std::thread([this]() {

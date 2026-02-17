@@ -1,0 +1,174 @@
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b3e52/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b3e52.dir/build.make CMakeFiles/cmTC_b3e52.dir/build
+gmake[1]: Entering directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b3e52.dir/CMakeCCompilerABI.c.obj
+/usr/bin/x86_64-w64-mingw32-gcc-posix   -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs    -v -o CMakeFiles/cmTC_b3e52.dir/CMakeCCompilerABI.c.obj -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc-posix
+Target: x86_64-w64-mingw32
+Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=posix --program-suffix=-posix --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10-posix 20220113 (GCC) 
+COLLECT_GCC_OPTIONS='-march=nocona' '-mtune=haswell' '-ftree-vectorize' '-fPIC' '-fstack-protector-strong' '-fno-plt' '-O2' '-ffunction-sections' '-pipe' '-isystem' '/opt/miniconda/include' '-I' '/opt/miniconda/targets/x86_64-linux/include' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-v' '-o' 'CMakeFiles/cmTC_b3e52.dir/CMakeCCompilerABI.c.obj' '-c'
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/cc1 -quiet -v -I /opt/miniconda/targets/x86_64-linux/include -D_REENTRANT -isystem /opt/miniconda/include /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=nocona -mtune=haswell -auxbase-strip CMakeFiles/cmTC_b3e52.dir/CMakeCCompilerABI.c.obj -O2 -version -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -ffunction-sections -o - |
+ /usr/bin/x86_64-w64-mingw32-as -v -I /opt/miniconda/targets/x86_64-linux/include -o CMakeFiles/cmTC_b3e52.dir/CMakeCCompilerABI.c.obj
+GNU assembler version 2.38 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.38
+GNU C17 (GCC) version 10-posix 20220113 (x86_64-w64-mingw32)
+	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/sys-include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /opt/miniconda/targets/x86_64-linux/include
+ /opt/miniconda/include
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/include
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/include-fixed
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/include
+End of search list.
+GNU C17 (GCC) version 10-posix 20220113 (x86_64-w64-mingw32)
+	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 84d55a13f82e600d7f9a66c525123fa4
+COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/bin/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib/
+COLLECT_GCC_OPTIONS='-march=nocona' '-mtune=haswell' '-ftree-vectorize' '-fPIC' '-fstack-protector-strong' '-fno-plt' '-O2' '-ffunction-sections' '-pipe' '-isystem' '/opt/miniconda/include' '-I' '/opt/miniconda/targets/x86_64-linux/include' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-v' '-o' 'CMakeFiles/cmTC_b3e52.dir/CMakeCCompilerABI.c.obj' '-c'
+Linking C executable cmTC_b3e52.exe
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b3e52.dir/link.txt --verbose=1
+/usr/bin/cmake -E rm -f CMakeFiles/cmTC_b3e52.dir/objects.a
+/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_b3e52.dir/objects.a @CMakeFiles/cmTC_b3e52.dir/objects1.rsp
+/usr/bin/x86_64-w64-mingw32-gcc-posix -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/opt/miniconda/lib -Wl,-rpath-link,/opt/miniconda/lib -L/opt/miniconda/lib  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs -v -Wl,--whole-archive CMakeFiles/cmTC_b3e52.dir/objects.a -Wl,--no-whole-archive -o cmTC_b3e52.exe -Wl,--out-implib,libcmTC_b3e52.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc-posix
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/lto-wrapper
+Target: x86_64-w64-mingw32
+Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=posix --program-suffix=-posix --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10-posix 20220113 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/bin/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib/
+COLLECT_GCC_OPTIONS='-march=nocona' '-mtune=haswell' '-ftree-vectorize' '-fPIC' '-fstack-protector-strong' '-fno-plt' '-O2' '-ffunction-sections' '-pipe' '-isystem' '/opt/miniconda/include' '-I' '/opt/miniconda/targets/x86_64-linux/include' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-L/opt/miniconda/lib' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-v' '-o' 'cmTC_b3e52.exe'
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/collect2 -plugin /usr/lib/gcc/x86_64-w64-mingw32/10-posix/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/lto-wrapper -plugin-opt=-fresolution=/tmp/ccbbzN11.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -m i386pep -Bdynamic -o cmTC_b3e52.exe /usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib/crt2.o /usr/lib/gcc/x86_64-w64-mingw32/10-posix/crtbegin.o -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs -L/opt/miniconda/lib -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs -L/usr/lib/gcc/x86_64-w64-mingw32/10-posix -L/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib -O2 --sort-common --as-needed -z relro -z now --disable-new-dtags --gc-sections -rpath /opt/miniconda/lib -rpath-link /opt/miniconda/lib --whole-archive CMakeFiles/cmTC_b3e52.dir/objects.a --no-whole-archive --out-implib libcmTC_b3e52.dll.a --major-image-version 0 --minor-image-version 0 -lssp_nonshared -lssp -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt /usr/lib/gcc/x86_64-w64-mingw32/10-posix/crtend.o
+/usr/bin/x86_64-w64-mingw32-ld: unrecognized option '-z'
+/usr/bin/x86_64-w64-mingw32-ld: use the --help option for usage information
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_b3e52.dir/build.make:100: cmTC_b3e52.exe] Error 1
+gmake[1]: Leaving directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_b3e52/fast] Error 2
+
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f0872/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f0872.dir/build.make CMakeFiles/cmTC_f0872.dir/build
+gmake[1]: Entering directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f0872.dir/testCCompiler.c.obj
+/usr/bin/x86_64-w64-mingw32-gcc-posix   -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -o CMakeFiles/cmTC_f0872.dir/testCCompiler.c.obj -c /mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_f0872.exe
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f0872.dir/link.txt --verbose=1
+/usr/bin/cmake -E rm -f CMakeFiles/cmTC_f0872.dir/objects.a
+/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_f0872.dir/objects.a @CMakeFiles/cmTC_f0872.dir/objects1.rsp
+/usr/bin/x86_64-w64-mingw32-gcc-posix -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/opt/miniconda/lib -Wl,-rpath-link,/opt/miniconda/lib -L/opt/miniconda/lib  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -Wl,--whole-archive CMakeFiles/cmTC_f0872.dir/objects.a -Wl,--no-whole-archive -o cmTC_f0872.exe -Wl,--out-implib,libcmTC_f0872.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_f0872.dir/linklibs.rsp
+/usr/bin/x86_64-w64-mingw32-ld: unrecognized option '-z'
+/usr/bin/x86_64-w64-mingw32-ld: use the --help option for usage information
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_f0872.dir/build.make:101: cmTC_f0872.exe] Error 1
+gmake[1]: Leaving directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_f0872/fast] Error 2
+
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_e8b7b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_e8b7b.dir/build.make CMakeFiles/cmTC_e8b7b.dir/build
+gmake[1]: Entering directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e8b7b.dir/CMakeCCompilerABI.c.obj
+/usr/bin/x86_64-w64-mingw32-gcc-posix   -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs    -v -o CMakeFiles/cmTC_e8b7b.dir/CMakeCCompilerABI.c.obj -c /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c
+Using built-in specs.
+COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc-posix
+Target: x86_64-w64-mingw32
+Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=posix --program-suffix=-posix --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10-posix 20220113 (GCC) 
+COLLECT_GCC_OPTIONS='-march=nocona' '-mtune=haswell' '-ftree-vectorize' '-fPIC' '-fstack-protector-strong' '-fno-plt' '-O2' '-ffunction-sections' '-pipe' '-isystem' '/opt/miniconda/include' '-I' '/opt/miniconda/targets/x86_64-linux/include' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-v' '-o' 'CMakeFiles/cmTC_e8b7b.dir/CMakeCCompilerABI.c.obj' '-c'
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/cc1 -quiet -v -I /opt/miniconda/targets/x86_64-linux/include -D_REENTRANT -isystem /opt/miniconda/include /usr/share/cmake-3.22/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=nocona -mtune=haswell -auxbase-strip CMakeFiles/cmTC_e8b7b.dir/CMakeCCompilerABI.c.obj -O2 -version -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -ffunction-sections -o - |
+ /usr/bin/x86_64-w64-mingw32-as -v -I /opt/miniconda/targets/x86_64-linux/include -o CMakeFiles/cmTC_e8b7b.dir/CMakeCCompilerABI.c.obj
+GNU assembler version 2.38 (x86_64-w64-mingw32) using BFD version (GNU Binutils) 2.38
+GNU C17 (GCC) version 10-posix 20220113 (x86_64-w64-mingw32)
+	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/sys-include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /opt/miniconda/targets/x86_64-linux/include
+ /opt/miniconda/include
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/include
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/include-fixed
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/include
+End of search list.
+GNU C17 (GCC) version 10-posix 20220113 (x86_64-w64-mingw32)
+	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 84d55a13f82e600d7f9a66c525123fa4
+COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/bin/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib/
+COLLECT_GCC_OPTIONS='-march=nocona' '-mtune=haswell' '-ftree-vectorize' '-fPIC' '-fstack-protector-strong' '-fno-plt' '-O2' '-ffunction-sections' '-pipe' '-isystem' '/opt/miniconda/include' '-I' '/opt/miniconda/targets/x86_64-linux/include' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-v' '-o' 'CMakeFiles/cmTC_e8b7b.dir/CMakeCCompilerABI.c.obj' '-c'
+Linking C executable cmTC_e8b7b.exe
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e8b7b.dir/link.txt --verbose=1
+/usr/bin/cmake -E rm -f CMakeFiles/cmTC_e8b7b.dir/objects.a
+/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_e8b7b.dir/objects.a @CMakeFiles/cmTC_e8b7b.dir/objects1.rsp
+/usr/bin/x86_64-w64-mingw32-gcc-posix -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/opt/miniconda/lib -Wl,-rpath-link,/opt/miniconda/lib -L/opt/miniconda/lib  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs -v -Wl,--whole-archive CMakeFiles/cmTC_e8b7b.dir/objects.a -Wl,--no-whole-archive -o cmTC_e8b7b.exe -Wl,--out-implib,libcmTC_e8b7b.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
+Using built-in specs.
+COLLECT_GCC=/usr/bin/x86_64-w64-mingw32-gcc-posix
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/lto-wrapper
+Target: x86_64-w64-mingw32
+Configured with: ../../src/configure --build=x86_64-linux-gnu --prefix=/usr --includedir='/usr/include' --mandir='/usr/share/man' --infodir='/usr/share/info' --sysconfdir=/etc --localstatedir=/var --disable-option-checking --disable-silent-rules --libdir='/usr/lib/x86_64-linux-gnu' --libexecdir='/usr/lib/x86_64-linux-gnu' --disable-maintainer-mode --disable-dependency-tracking --prefix=/usr --enable-shared --enable-static --disable-multilib --with-system-zlib --libexecdir=/usr/lib --without-included-gettext --libdir=/usr/lib --enable-libstdcxx-time=yes --with-tune=generic --with-headers --enable-version-specific-runtime-libs --enable-fully-dynamic-string --enable-libgomp --enable-languages=c,c++,fortran,objc,obj-c++,ada --enable-lto --enable-threads=posix --program-suffix=-posix --program-prefix=x86_64-w64-mingw32- --target=x86_64-w64-mingw32 --with-as=/usr/bin/x86_64-w64-mingw32-as --with-ld=/usr/bin/x86_64-w64-mingw32-ld --enable-libatomic --enable-libstdcxx-filesystem-ts=yes --enable-dependency-tracking SED=/bin/sed
+Thread model: posix
+Supported LTO compression algorithms: zlib
+gcc version 10-posix 20220113 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/bin/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/:/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib/
+COLLECT_GCC_OPTIONS='-march=nocona' '-mtune=haswell' '-ftree-vectorize' '-fPIC' '-fstack-protector-strong' '-fno-plt' '-O2' '-ffunction-sections' '-pipe' '-isystem' '/opt/miniconda/include' '-I' '/opt/miniconda/targets/x86_64-linux/include' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-L/opt/miniconda/lib' '-L/opt/miniconda/targets/x86_64-linux/lib' '-L/opt/miniconda/targets/x86_64-linux/lib/stubs' '-v' '-o' 'cmTC_e8b7b.exe'
+ /usr/lib/gcc/x86_64-w64-mingw32/10-posix/collect2 -plugin /usr/lib/gcc/x86_64-w64-mingw32/10-posix/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-w64-mingw32/10-posix/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwlljQ9.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_eh -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lmsvcrt -m i386pep -Bdynamic -o cmTC_e8b7b.exe /usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib/crt2.o /usr/lib/gcc/x86_64-w64-mingw32/10-posix/crtbegin.o -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs -L/opt/miniconda/lib -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs -L/usr/lib/gcc/x86_64-w64-mingw32/10-posix -L/usr/lib/gcc/x86_64-w64-mingw32/10-posix/../../../../x86_64-w64-mingw32/lib -O2 --sort-common --as-needed -z relro -z now --disable-new-dtags --gc-sections -rpath /opt/miniconda/lib -rpath-link /opt/miniconda/lib --whole-archive CMakeFiles/cmTC_e8b7b.dir/objects.a --no-whole-archive --out-implib libcmTC_e8b7b.dll.a --major-image-version 0 --minor-image-version 0 -lssp_nonshared -lssp -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc -lgcc_eh -lmoldname -lmingwex -lmsvcrt /usr/lib/gcc/x86_64-w64-mingw32/10-posix/crtend.o
+/usr/bin/x86_64-w64-mingw32-ld: unrecognized option '-z'
+/usr/bin/x86_64-w64-mingw32-ld: use the --help option for usage information
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_e8b7b.dir/build.make:100: cmTC_e8b7b.exe] Error 1
+gmake[1]: Leaving directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_e8b7b/fast] Error 2
+
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_ca344/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ca344.dir/build.make CMakeFiles/cmTC_ca344.dir/build
+gmake[1]: Entering directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ca344.dir/testCCompiler.c.obj
+/usr/bin/x86_64-w64-mingw32-gcc-posix   -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -o CMakeFiles/cmTC_ca344.dir/testCCompiler.c.obj -c /mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_ca344.exe
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca344.dir/link.txt --verbose=1
+/usr/bin/cmake -E rm -f CMakeFiles/cmTC_ca344.dir/objects.a
+/usr/bin/x86_64-w64-mingw32-ar qc CMakeFiles/cmTC_ca344.dir/objects.a @CMakeFiles/cmTC_ca344.dir/objects1.rsp
+/usr/bin/x86_64-w64-mingw32-gcc-posix -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections -pipe -isystem /opt/miniconda/include  -I/opt/miniconda/targets/x86_64-linux/include  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags -Wl,--gc-sections -Wl,-rpath,/opt/miniconda/lib -Wl,-rpath-link,/opt/miniconda/lib -L/opt/miniconda/lib  -L/opt/miniconda/targets/x86_64-linux/lib -L/opt/miniconda/targets/x86_64-linux/lib/stubs  -Wl,--whole-archive CMakeFiles/cmTC_ca344.dir/objects.a -Wl,--no-whole-archive -o cmTC_ca344.exe -Wl,--out-implib,libcmTC_ca344.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles/cmTC_ca344.dir/linklibs.rsp
+/usr/bin/x86_64-w64-mingw32-ld: unrecognized option '-z'
+/usr/bin/x86_64-w64-mingw32-ld: use the --help option for usage information
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_ca344.dir/build.make:101: cmTC_ca344.exe] Error 1
+gmake[1]: Leaving directory '/mnt/c/Users/jmes1/桌面/play/minidragon/build-win/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_ca344/fast] Error 2
+
+
+

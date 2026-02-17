@@ -14,6 +14,8 @@ MemorySearchStore::MemorySearchStore(const std::string& db_path, int dimensions)
     : dimensions_(dimensions) {
     fs::create_directories(fs::path(db_path).parent_path());
 
+    sqlite3_initialize();  // Ensure FTS5 extension is registered
+
     int rc = sqlite3_open(db_path.c_str(), &db_);
     if (rc != SQLITE_OK) {
         std::cerr << "[memory_search] Failed to open database: " << sqlite3_errmsg(db_) << "\n";
